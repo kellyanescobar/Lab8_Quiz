@@ -8,7 +8,6 @@ package lab8quiz;
  *
  * @author laraj
  */
-
 public class ListaMusica {
     private Reproductor cabeza;
 
@@ -66,4 +65,3 @@ public class ListaMusica {
         return count;
     }
 }
-
