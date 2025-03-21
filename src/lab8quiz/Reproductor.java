@@ -8,8 +8,6 @@ import javax.swing.ImageIcon;
  *
  * @author laraj
  */
-import javax.swing.ImageIcon;
-
 public class Reproductor {
     private String nombre;
     private String artista;

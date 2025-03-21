@@ -42,7 +42,7 @@ public class Gui extends JFrame {
 
     private JLabel lblInfo, lblImagen;
     private JTextArea txtLista;
-    private JButton btnPlay, btnPause, btnStop, btnAdd, btnSelect, btnRemove;
+    private JButton btnPlay, btnStop, btnAdd, btnSelect, btnRemove;
 
     public Gui() {
         setTitle("Reproductor MP3");
@@ -55,15 +55,13 @@ public class Gui extends JFrame {
         txtLista = new JTextArea(10, 30);
         txtLista.setEditable(false);
 
-        JPanel panelBotones = new JPanel(new GridLayout(1, 6));
+        JPanel panelBotones = new JPanel(new GridLayout(1, 5));
         btnPlay = new JButton("Play");
-        btnPause = new JButton("Pause");
         btnStop = new JButton("Stop");
         btnAdd = new JButton("Add");
         btnSelect = new JButton("Select");
         btnRemove = new JButton("Remove");
         panelBotones.add(btnPlay);
-        panelBotones.add(btnPause);
         panelBotones.add(btnStop);
         panelBotones.add(btnAdd);
         panelBotones.add(btnSelect);
@@ -78,7 +76,6 @@ public class Gui extends JFrame {
         btnAdd.addActionListener(e -> agregarCancion());
         btnSelect.addActionListener(e -> seleccionarCancion());
         btnPlay.addActionListener(e -> reproducir());
-        btnPause.addActionListener(e -> pausar());
         btnStop.addActionListener(e -> detener());
         btnRemove.addActionListener(e -> eliminarCancion());
 
@@ -104,7 +101,6 @@ public class Gui extends JFrame {
                     artista = tag.getArtist() != null ? tag.getArtist() : "Desconocido";
                     genero = tag.getGenreDescription() != null ? tag.getGenreDescription() : "Desconocido";
                     duracion = convertirDuracion(mp3.getLengthInSeconds());
-
                     byte[] imgData = tag.getAlbumImage();
                     if (imgData != null) imagen = new ImageIcon(imgData);
                 }
@@ -167,7 +163,7 @@ public class Gui extends JFrame {
     private void reproducir() {
         try {
             if (actual != null) {
-                detener();
+                detener(); // Detener antes de reproducir nueva
                 fis = new FileInputStream(actual.getRutaArchivo());
                 bis = new BufferedInputStream(fis);
                 player = new Player(bis);
@@ -184,10 +180,6 @@ public class Gui extends JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private void pausar() {
-        JOptionPane.showMessageDialog(this, "Pausa no soportada con JLayer");
     }
 
     private void detener() {
